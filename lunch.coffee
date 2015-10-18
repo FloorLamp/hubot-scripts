@@ -30,8 +30,11 @@ module.exports = (robot) ->
     msg.send 'Very well. You shall have ' + newOpt + '. Maybe.'
 
   robot.respond /lunch (opts|options)$/i, (msg) ->
-    opts = robot.brain.get('lunches')
-    msg.send 'Your available lunches: ' + opts.join(', ')
+    if robot.brain.get('lunches')
+      opts = robot.brain.get('lunches')
+      msg.send 'Your available lunches: ' + opts.join(', ')
+    else
+      msg.send 'You need to add some lunch options or else you will only eat Chipotle.'
 
   robot.respond /lunch (del|delete) (.*)$/i, (msg) ->
     opts = robot.brain.get('lunches')
